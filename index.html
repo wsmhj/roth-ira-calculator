@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roth IRA Calculator</title>
+  <meta name="description" content="Free Roth IRA calculator. Plan your retirement savings and estimate tax-free growth.">
+  <link rel="canonical" href="https://rothiracalculator.app/" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f9fa; color: #1a1a1a; padding: 20px; }
+    .container { max-width: 480px; margin: 0 auto; }
+    h1 { font-size: 24px; margin-bottom: 8px; }
+    .subtitle { color: #666; margin-bottom: 24px; font-size: 14px; }
+    .field { margin-bottom: 16px; }
+    label { display: block; font-weight: 600; margin-bottom: 4px; font-size: 14px; }
+    input { width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; }
+    input:focus { outline: none; border-color: #2563eb; }
+    .result { background: #fff; border-radius: 12px; padding: 24px; margin-top: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); text-align: center; }
+    .amount { font-size: 36px; font-weight: 700; color: #1a1a1a; }
+    .label { color: #666; font-size: 14px; margin-top: 4px; }
+    .full-version { display: block; text-align: center; margin-top: 24px; padding: 14px; background: #2563eb; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 15px; }
+    .full-version:hover { background: #1d4ed8; }
+    footer { margin-top: 32px; text-align: center; font-size: 12px; color: #999; }
+    footer a { color: #2563eb; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Roth IRA Calculator</h1>
+    <p class="subtitle">Estimate your tax-free retirement savings</p>
+    <div class="field">
+      <label>Annual Contribution ($)</label>
+      <input type="number" id="contribution" value="6000" oninput="calc()">
+    </div>
+    <div class="field">
+      <label>Annual Return Rate (%)</label>
+      <input type="number" id="rate" value="7" step="0.1" oninput="calc()">
+    </div>
+    <div class="field">
+      <label>Years Until Retirement</label>
+      <input type="number" id="years" value="30" oninput="calc()">
+    </div>
+    <div class="result">
+      <div class="amount" id="balance">$0</div>
+      <div class="label">Estimated Retirement Balance</div>
+    </div>
+    <a class="full-version" href="https://rothiracalculator.app/">
+      Full Roth IRA Calculator
+    </a>
+    <footer>
+      <p>Full version at <a href="https://rothiracalculator.app/">Roth IRA Calculator</a></p>
+    </footer>
+  </div>
+  <script>
+    function calc() {
+      var p = parseFloat(document.getElementById('contribution').value);
+      var r = parseFloat(document.getElementById('rate').value) / 100;
+      var n = parseInt(document.getElementById('years').value);
+      if (!p || !r || !n) { document.getElementById('balance').textContent = '$0'; return; }
+      var fv = p * (Math.pow(1 + r, n) - 1) / r;
+      document.getElementById('balance').textContent = '$' + Math.round(fv).toLocaleString();
+    }
+    calc();
+  </script>
+</body>
+</html>
